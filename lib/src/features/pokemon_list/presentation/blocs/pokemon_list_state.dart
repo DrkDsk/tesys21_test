@@ -16,10 +16,7 @@ final class PokemonErrorState extends PokemonListState {
 
 final class PokemonListSuccessState extends PokemonListState {
   final List<Result> pokemonResult;
-  /*final int offset;
-  final int limit;
-  final String? next;
-  final String? previous;*/
+  final bool hasReachedEnd;
 
-  PokemonListSuccessState({required this.pokemonResult/*, required this.offset, required this.limit, */});
+  PokemonListSuccessState({required this.pokemonResult, this.hasReachedEnd = false});
 }
