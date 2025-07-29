@@ -44,7 +44,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Pokédex")),
+      appBar: AppBar(title: const Text("Pokédex"), backgroundColor: Colors.yellow[200]),
       body: Column(
         children: [
           Expanded(child: BlocBuilder<PokemonListBloc, PokemonListState>(
