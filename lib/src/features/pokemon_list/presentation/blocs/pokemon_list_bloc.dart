@@ -7,21 +7,23 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   final PokemonListRepository repository;
 
   PokemonListBloc({required this.repository}) : super(PokemonListInitial()) {
-    on<GetPokemonListEvent>(_getPokemonList);
+    on<FetchPokemonEvent>(_getPokemonList);
   }
 
   Future<void> _getPokemonList(
-      GetPokemonListEvent event, Emitter<PokemonListState> emit) async {
+      FetchPokemonEvent event, Emitter<PokemonListState> emit) async {
     final int offset = event.offset;
     final int limit = event.limit;
 
     final resultEither =
         await repository.getPokemonList(offset: offset, limit: limit);
 
-    resultEither.fold((left) {
-      emit(PokemonErrorState(message: left.message));
-    }, (right) {
-      emit(PokemonListSuccessState(pokemonResult: right.results));
-    });
+    resultEither.fold(
+      (left) => emit(PokemonErrorState(message: left.message)),
+      (right) {
+        final bool hasNext = right.results.length == limit;
+        emit(PokemonListSuccessState(pokemonResult: right.results, hasReachedEnd: hasNext));
+      },
+    );
   }
 }
