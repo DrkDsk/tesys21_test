@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tesys21_test/src/core/helpers/image_helper.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/entities/result.dart';
 
 class PokemonCardWidget extends StatelessWidget {
@@ -12,7 +13,8 @@ class PokemonCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String? imageUrl = pokemon.url;
+    final String? pokemonId = ImageHelper.extractIdFromUrl(pokemon.url);
+    final String? imageUrl = pokemonId != null ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$pokemonId.png" : null;
     final String? name = pokemon.name;
 
     return Container(
@@ -34,14 +36,15 @@ class PokemonCardWidget extends StatelessWidget {
               SizedBox(
                 height: 120,
                 child: Center(
-                  child: Text("data")/*CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    placeholder: (context, url) =>
-                    const CircularProgressIndicator(strokeWidth: 2),
-                    errorWidget: (context, url, error) =>
-                    const Icon(Icons.error, color: Colors.red),
+                  child: Image.network(
+                    imageUrl,
                     fit: BoxFit.contain,
-                  )*/,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+                    },
+                    errorBuilder: (context, error, stackTrace) => const Center(child: Icon(Icons.error, color: Colors.red)),
+                  ),
                 ),
               )
             ],
