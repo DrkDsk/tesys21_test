@@ -16,13 +16,27 @@ class PokemonShowBloc extends Bloc<PokemonShowEvent, PokemonShowState> {
 
     emit(PokemonShowLoadingState());
 
-    final resultEither = await repository.getPokemon(id: id);
+    final infoResult = await repository.getPokemonInformation(id: id);
 
-    resultEither.fold(
-      (left) => emit(PokemonShowErrorState(message: left.message)),
-      (right) {
-        emit(PokemonShowSuccessState(response: right));
+    await infoResult.fold(
+          (failure) async {
+        emit(PokemonShowErrorState(message: failure.message));
+      },
+          (info) async {
+        final descriptionResult = await repository.getPokemonDescription(id: id);
+
+        descriptionResult.fold(
+              (failure) => emit(PokemonShowErrorState(message: failure.message)),
+              (description) => emit(
+            PokemonShowSuccessState(
+              response: info,
+              color: description.color,
+              description: description.flavorTextEntries.first.flavorText,
+            ),
+          ),
+        );
       },
     );
+
   }
 }

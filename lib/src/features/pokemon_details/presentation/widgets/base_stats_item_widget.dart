@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tesys21_test/src/core/extensions/int_extension.dart';
 
-class BaseStatsWidget extends StatelessWidget {
-  const BaseStatsWidget({
+class BaseStatsItemWidget extends StatelessWidget {
+  const BaseStatsItemWidget({
     super.key,
     required this.statName,
     required this.baseStat,
