@@ -1,0 +1,92 @@
+import 'package:tesys21_test/src/features/show_pokemon/data/models/ability_model.dart';
+import 'package:tesys21_test/src/features/show_pokemon/data/models/move_model.dart';
+import 'package:tesys21_test/src/features/show_pokemon/domain/entities/show_pokemon_response.dart';
+
+class ShowPokemonResponseModel {
+  ShowPokemonResponseModel({
+    required this.abilities,
+    required this.baseExperience,
+    required this.height,
+    required this.id,
+    required this.moves,
+    required this.name,
+    required this.stats,
+    required this.types,
+    required this.weight,
+  });
+
+  final List<AbilityModel> abilities;
+  final int? baseExperience;
+  final int? height;
+  final int? id;
+  final List<MoveModel> moves;
+  final String? name;
+  final List<Stat> stats;
+  final List<Type> types;
+  final int? weight;
+
+  ShowPokemonResponseModel copyWith({
+    List<AbilityModel>? abilities,
+    int? baseExperience,
+    int? height,
+    int? id,
+    List<MoveModel>? moves,
+    String? name,
+    List<Stat>? stats,
+    List<Type>? types,
+    int? weight,
+  }) {
+    return ShowPokemonResponseModel(
+      abilities: abilities ?? this.abilities,
+      baseExperience: baseExperience ?? this.baseExperience,
+      height: height ?? this.height,
+      id: id ?? this.id,
+      moves: moves ?? this.moves,
+      name: name ?? this.name,
+      stats: stats ?? this.stats,
+      types: types ?? this.types,
+      weight: weight ?? this.weight,
+    );
+  }
+
+  ShowPokemonResponse toEntity() {
+    return ShowPokemonResponse(
+        abilities: abilities.map((x) => x.toEntity()).toList(),
+        baseExperience: baseExperience,
+        height: height,
+        id: id,
+        moves: moves.map((x) => x.toEntity()).toList(),
+        name: name,
+        stats: stats,
+        types: types,
+        weight: weight);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'abilities': abilities,
+      'baseExperience': baseExperience,
+      'height': height,
+      'id': id,
+      'moves': moves,
+      'name': name,
+      'stats': stats,
+      'types': types,
+      'weight': weight,
+    };
+  }
+
+  factory ShowPokemonResponseModel.fromJson(Map<String, dynamic> map) {
+    return ShowPokemonResponseModel(
+      abilities: map["abilities"] == null ? [] : List<AbilityModel>.from(map["abilities"]!.map((x) => AbilityModel.fromJson(x))),
+      baseExperience: map['baseExperience'] as int,
+      height: map['height'] as int,
+      id: map['id'] as int,
+      moves: map['moves'] as List<MoveModel>,
+      name: map['name'] as String,
+      stats: map['stats'] as List<Stat>,
+      types: map['types'] as List<Type>,
+      weight: map['weight'] as int,
+    );
+  }
+}
