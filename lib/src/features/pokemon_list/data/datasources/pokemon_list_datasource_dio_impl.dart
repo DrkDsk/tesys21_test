@@ -16,7 +16,7 @@ class PokemonListDataSourceDioImpl implements PokemonListDataSource {
   @override
   Future<PokemonListResponseModel> getPokemonList({required int offset, required int limit}) async {
     try {
-      final response = await dio.get('pokemon?limit=$limit&offset=$offset');
+      final response = await dio.get('/pokemon?limit=$limit&offset=$offset');
 
       return PokemonListResponseModel.fromJson(response.data);
     } on DioException catch (e) {
