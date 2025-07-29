@@ -6,6 +6,7 @@ import 'package:tesys21_test/src/core/shared/ui/widgets/image_network_widget.dar
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_event.dart';
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_state.dart';
+import 'package:tesys21_test/src/features/pokemon_details/presentation/widgets/base_stats_widget.dart';
 
 class PokemonDetailsScreen extends StatefulWidget {
   final int pokemonId;
@@ -51,13 +52,15 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     children: [
-                      const Icon(Icons.arrow_back),
+                      IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(Icons.arrow_back)),
                       const SizedBox(width: 12),
-                      if (name != null) ... [
+                      if (name != null) ...[
                         Text(
                           name.capitalizeFirst(),
                           style: const TextStyle(
@@ -65,7 +68,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                         )
                       ],
                       const Spacer(),
-                      if (id != null) ... [
+                      if (id != null) ...[
                         Text(
                           '#$id',
                           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -94,16 +97,21 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                             color: Colors.black12,
                             shape: BoxShape.circle,
                           ),
-                          child: ImageNetworkWidget(imageUrl: response.sprites?.frontDefault),
+                          child: ImageNetworkWidget(
+                              imageUrl: response.sprites?.frontDefault),
                         ),
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ...types.map((type) => Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                              child: Chip(label: Text(type.type?.name?.capitalizeFirst() ?? "")),
-                            )),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4.0),
+                                  child: Chip(
+                                      label: Text(
+                                          type.type?.name?.capitalizeFirst() ??
+                                              "")),
+                                )),
                           ],
                         ),
                       ],
@@ -129,11 +137,13 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Center(
+                          Center(
                             child: Text(
                               'Acerca de',
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[500]),
                             ),
                           ),
                           const SizedBox(height: 16),
@@ -157,8 +167,13 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                               Column(
                                 children: [
                                   const Icon(Icons.flash_on),
-                                  ...response.abilities.where((ability) => ability.ability?.name != null).map((ability) {
-                                    return Text(ability.ability?.name?.capitalizeFirst() ?? "");
+                                  ...response.abilities
+                                      .where((ability) =>
+                                          ability.ability?.name != null)
+                                      .map((ability) {
+                                    return Text(ability.ability?.name
+                                            ?.capitalizeFirst() ??
+                                        "");
                                   }),
                                 ],
                               ),
@@ -173,40 +188,31 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                             child: Text(
                               'Estadísticas Base',
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey[500]),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[500]),
                             ),
                           ),
                           const SizedBox(height: 12),
                           ...response.stats.map(
-                                (stat) {
-                                  final statName = stat.stat?.name;
-                                  final baseStat = stat.baseStat ?? 0;
-                                  final baseStateValue = baseStat / 255;
+                            (stat) {
+                              final statName = stat.stat?.name;
+                              final baseStat = stat.baseStat ?? 0;
+                              final baseStateValue = baseStat / 255;
 
-                                  return Column(
-                                    children: [
-                                      if (statName != null && statName.isNotEmpty) ... [
-                                        Row(
-                                          children: [
-                                            SizedBox(width: 40, child: Text(statName)),
-                                            const SizedBox(width: 8),
-                                            Text("$baseStat"),
-                                            const SizedBox(width: 8),
-                                            Expanded(
-                                              child: LinearProgressIndicator(
-                                                value: baseStateValue, // 0.45
-                                                minHeight: 6,
-                                                backgroundColor: Colors.grey.shade300,
-                                                valueColor: AlwaysStoppedAnimation(baseStateValue.statColor),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                      const SizedBox(height: 8),
-                                    ],
-                                  );
-                                },
+                              return Column(
+                                children: [
+                                  if (statName != null &&
+                                      statName.isNotEmpty) ...[
+                                    BaseStatsWidget(
+                                        statName: statName,
+                                        baseStat: baseStat,
+                                        baseStateValue: baseStateValue)
+                                  ],
+                                  const SizedBox(height: 8),
+                                ],
+                              );
+                            },
                           )
                         ],
                       ),
