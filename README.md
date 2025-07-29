@@ -1,16 +1,44 @@
-# tesys21_test
+# Tesys21 Prueba técnica
 
-A new Flutter project.
+Aplicación móvil que consume la API de Pokedex desarrollada en Flutter y devuelve una lista paginada de pokemones y permite el filtrado por nombre, así como ordenamiento por id y nombre.
 
-## Getting Started
+## 📦 Requisitos Previos
 
-This project is a starting point for a Flutter application.
+Antes de comenzar, asegúrate de tener lo siguiente instalado en tu máquina:
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (versión recomendada: >3.5.1)
+- [Dart](https://dart.dev/get-dart)
+- [Android Studio](https://developer.android.com/studio) o [Xcode](https://developer.apple.com/xcode/) para emuladores
+- Un emulador o dispositivo físico configurado
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🚀 Instalación y Ejecución
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clona el repositorio:**
+
+```bash
+git clone https://github.com/DrkDsk/tesys21_test 
+
+```
+
+2. **Instala las dependencias:**
+
+```bash
+flutter clean
+
+flutter pub get
+
+````
+
+3. **Corre el proyecto:**
+
+```bash
+flutter run lib/main.dart
+
+````
+
+4. **Compila el apk (Opcional):**
+
+```bash
+flutter build apk -t lib/main.dar
+
+````
