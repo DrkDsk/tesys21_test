@@ -14,27 +14,42 @@ class PokemonListScreen extends StatefulWidget {
 
 class _PokemonListScreenState extends State<PokemonListScreen> {
   late PokemonListBloc pokemonListBloc;
+  int _currentPage = 0;
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     pokemonListBloc = context.read<PokemonListBloc>();
     Future.microtask(() {
-      _handleFetchPokemons();
+      _handleFetchPokemons(page: _currentPage);
     });
   }
 
-  Future<void> _handleFetchPokemons() async {
-    pokemonListBloc.add(FetchPokemonEvent());
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleFetchPokemons({required int page}) async {
+    pokemonListBloc.add(FetchPokemonEvent(offset: page));
+  }
+
+  void _loadPage(int page) {
+    _handleFetchPokemons(page: page);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: const Text("Pokédex")),
       body: Column(
         children: [
-          Expanded(child: BlocBuilder<PokemonListBloc, PokemonListState>(builder: (context, state) {
+          Expanded(child: BlocBuilder<PokemonListBloc, PokemonListState>(
+              builder: (context, state) {
             if (state is PokemonLoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -42,6 +57,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             if (state is PokemonListSuccessState) {
               final pokemonList = state.pokemonResult;
               return GridView.builder(
+                controller: _scrollController,
                 padding: const EdgeInsets.only(bottom: 24),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -63,6 +79,38 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
             return const SizedBox.shrink();
           })),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: BlocBuilder<PokemonListBloc, PokemonListState>(
+              builder: (context, state) {
+                final hasNext = state is PokemonListSuccessState ? state.hasReachedEnd : true;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _currentPage > 0
+                          ? () {
+                              setState(() => _currentPage--);
+                              _loadPage(_currentPage);
+                            }
+                          : null,
+                      child: const Icon(Icons.arrow_back),
+                    ),
+                    Text('Página ${_currentPage + 1}'),
+                    ElevatedButton(
+                      onPressed: hasNext
+                          ? () {
+                              setState(() => _currentPage++);
+                              _loadPage(_currentPage);
+                            }
+                          : null,
+                      child: const Icon(Icons.arrow_forward),
+                    ),
+                  ],
+                );
+              },
+            ),
+          )
         ],
       ),
     );

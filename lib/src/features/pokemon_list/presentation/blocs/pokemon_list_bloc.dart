@@ -18,10 +18,12 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
     final resultEither =
         await repository.getPokemonList(offset: offset, limit: limit);
 
-    resultEither.fold((left) {
-      emit(PokemonErrorState(message: left.message));
-    }, (right) {
-      emit(PokemonListSuccessState(pokemonResult: right.results));
-    });
+    resultEither.fold(
+      (left) => emit(PokemonErrorState(message: left.message)),
+      (right) {
+        final bool hasNext = right.results.length == limit;
+        emit(PokemonListSuccessState(pokemonResult: right.results, hasReachedEnd: hasNext));
+      },
+    );
   }
 }
