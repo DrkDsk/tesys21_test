@@ -23,5 +23,4 @@ class PokemonListRepositoryImpl implements PokemonListRepository {
       return Left(GenericFailure("Ha ocurrido un error"));
     }
   }
-
 }
