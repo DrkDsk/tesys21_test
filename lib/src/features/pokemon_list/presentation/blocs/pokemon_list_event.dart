@@ -17,3 +17,9 @@ final class SortPokemonEvent extends PokemonListEvent {
 
   SortPokemonEvent(this.option);
 }
+
+final class SearchPokemonEvent extends PokemonListEvent {
+  final String query;
+
+  SearchPokemonEvent({required this.query});
+}

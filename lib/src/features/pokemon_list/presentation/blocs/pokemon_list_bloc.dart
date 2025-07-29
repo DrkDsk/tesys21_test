@@ -14,6 +14,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
   PokemonListBloc({required this.repository}) : super(PokemonListInitial()) {
     on<FetchPokemonEvent>(_getPokemonList);
     on<SortPokemonEvent>(_onSortPokemonList);
+    on<SearchPokemonEvent>(_onSearchPokemon);
   }
 
   Future<void> _getPokemonList(
@@ -78,6 +79,35 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
         pokemonResult: sortedList,
         displayedPokemons: displayed,
         currentSort: event.option,
+      ));
+    }
+  }
+
+  Future<void> _onSearchPokemon(
+      SearchPokemonEvent event,
+      Emitter<PokemonListState> emit,
+      ) async {
+    final currentState = state;
+
+
+    if (currentState is PokemonListSuccessState) {
+      final query = event.query.trim().toLowerCase();
+
+
+      final filtered = currentState.pokemonResult.where((pokemon) {
+        final name = pokemon.name;
+
+
+        if (name == null) {
+          return false;
+        }
+
+        return name.toLowerCase().contains(query);
+      }).toList();
+
+      emit(currentState.copyWith(
+        displayedPokemons: filtered,
+        searchQuery: query,
       ));
     }
   }

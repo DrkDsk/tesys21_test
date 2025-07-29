@@ -21,6 +21,7 @@ final class PokemonListSuccessState extends PokemonListState {
   final int currentPage;
   final bool hasReachedEnd;
   final SortOption currentSort;
+  final String searchQuery;
 
   PokemonListSuccessState({
     required this.pokemonResult,
@@ -28,6 +29,7 @@ final class PokemonListSuccessState extends PokemonListState {
     required this.currentPage,
     required this.currentSort,
     this.hasReachedEnd = false,
+    this.searchQuery = '',
   });
 
   PokemonListSuccessState copyWith({
@@ -36,6 +38,7 @@ final class PokemonListSuccessState extends PokemonListState {
     int? currentPage,
     bool? hasReachedEnd,
     SortOption? currentSort,
+    String? searchQuery,
   }) {
     return PokemonListSuccessState(
       pokemonResult: pokemonResult ?? this.pokemonResult,
@@ -43,6 +46,7 @@ final class PokemonListSuccessState extends PokemonListState {
       currentPage: currentPage ?? this.currentPage,
       hasReachedEnd: hasReachedEnd ?? this.hasReachedEnd,
       currentSort: currentSort ?? this.currentSort,
+      searchQuery: searchQuery ?? this.searchQuery
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesys21_test/src/core/enum/sort_option.dart';
+import 'package:tesys21_test/src/core/shared/ui/widgets/search_pokemon_field.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_event.dart';
 
@@ -18,18 +19,8 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Buscar Pokémon...',
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
+              const Expanded(
+                child: SearchPokemonField(),
               ),
               const SizedBox(width: 10),
               PopupMenuButton<SortOption>(
