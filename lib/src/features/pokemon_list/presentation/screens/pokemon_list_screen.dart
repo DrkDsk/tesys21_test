@@ -16,7 +16,6 @@ class PokemonListScreen extends StatefulWidget {
 class _PokemonListScreenState extends State<PokemonListScreen> {
   late PokemonListBloc pokemonListBloc;
 
-
   @override
   void initState() {
     super.initState();

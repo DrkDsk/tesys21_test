@@ -11,14 +11,10 @@ class SearchPokemonField extends StatelessWidget {
     return TextField(
       onChanged: (value) => BlocProvider.of<PokemonListBloc>(context)
           .add(SearchPokemonEvent(query: value)),
-      decoration: InputDecoration(
-        hintText: 'Buscar Pokémon...',
-        filled: true,
-        fillColor: Colors.white,
-        prefixIcon: const Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+      decoration: const InputDecoration(
+        hintText: 'Buscar Pokemon',
+        border: InputBorder.none,
+        isDense: true,
       ),
     );
   }
