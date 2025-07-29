@@ -71,10 +71,6 @@ class PokemonCardWidget extends StatelessWidget {
                         child: Center(
                           child: Text(
                             name.capitalizeFirst(),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
