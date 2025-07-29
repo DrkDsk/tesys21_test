@@ -60,7 +60,7 @@ void main() {
     final result = await datasource.getPokemonList(offset: offset, limit: limit);
 
     final expectedResults = fakeResults
-        .map((e) => ResultModel(name: e['name']!, url: e['url']!))
+        .map((e) => ResultModel(name: e['name']!, url: e['url']!, id: ''))
         .toList();
 
     expect(result.count, 1302);
