@@ -19,7 +19,6 @@ class PokemonCardWidget extends StatelessWidget {
 
   Future<void> _handleShowPokemonNavigation(
       {required BuildContext context, required int pokemonId}) async {
-
     AppRouter.of(context).goToScreen(BlocProvider(
         create: (context) => getIt<PokemonShowBloc>(),
         child: PokemonDetailsScreen(pokemonId: pokemonId)));
@@ -48,34 +47,17 @@ class PokemonCardWidget extends StatelessWidget {
               onTap: () => _handleShowPokemonNavigation(
                   context: context, pokemonId: int.tryParse(pokemonId) ?? 0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (imageUrl.isNotEmpty) ...[
-                    SizedBox(
-                      height: 120,
-                      child: Center(
-                        child: ImageNetworkWidget(imageUrl: imageUrl),
-                      ),
-                    )
-                  ],
-                  if (name.isNotEmpty) ...[
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
-                          borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(16),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            name.capitalizeFirst(),
-                          ),
-                        ),
-                      ),
-                    )
-                  ]
+                  const SizedBox(height: 8),
+                  ImageNetworkWidget(imageUrl: imageUrl, height: 100, width: 100),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             )
