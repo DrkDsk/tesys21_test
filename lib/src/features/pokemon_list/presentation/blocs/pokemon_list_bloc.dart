@@ -12,8 +12,9 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
 
   Future<void> _getPokemonList(
       FetchPokemonEvent event, Emitter<PokemonListState> emit) async {
-    final int offset = event.offset;
     final int limit = event.limit;
+    final int page = event.page;
+    final int offset = page * event.limit;
 
     final resultEither =
         await repository.getPokemonList(offset: offset, limit: limit);
@@ -22,7 +23,7 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       (left) => emit(PokemonErrorState(message: left.message)),
       (right) {
         final bool hasNext = right.results.length == limit;
-        emit(PokemonListSuccessState(pokemonResult: right.results, hasReachedEnd: hasNext));
+        emit(PokemonListSuccessState(pokemonResult: right.results, hasReachedEnd: hasNext, currentPage: page));
       },
     );
   }

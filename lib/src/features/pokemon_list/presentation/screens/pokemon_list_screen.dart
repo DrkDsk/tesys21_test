@@ -14,7 +14,6 @@ class PokemonListScreen extends StatefulWidget {
 
 class _PokemonListScreenState extends State<PokemonListScreen> {
   late PokemonListBloc pokemonListBloc;
-  int _currentPage = 0;
 
   final ScrollController _scrollController = ScrollController();
 
@@ -23,7 +22,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     super.initState();
     pokemonListBloc = context.read<PokemonListBloc>();
     Future.microtask(() {
-      _handleFetchPokemons(page: _currentPage);
+      _handleFetchPokemons();
     });
   }
 
@@ -33,8 +32,8 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     super.dispose();
   }
 
-  Future<void> _handleFetchPokemons({required int page}) async {
-    pokemonListBloc.add(FetchPokemonEvent(offset: page));
+  Future<void> _handleFetchPokemons({int page = 0}) async {
+    pokemonListBloc.add(FetchPokemonEvent(page: page));
   }
 
   void _loadPage(int page) {
@@ -83,31 +82,34 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<PokemonListBloc, PokemonListState>(
               builder: (context, state) {
-                final hasNext = state is PokemonListSuccessState ? state.hasReachedEnd : true;
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: _currentPage > 0
-                          ? () {
-                              setState(() => _currentPage--);
-                              _loadPage(_currentPage);
-                            }
-                          : null,
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                    Text('Página ${_currentPage + 1}'),
-                    ElevatedButton(
-                      onPressed: hasNext
-                          ? () {
-                              setState(() => _currentPage++);
-                              _loadPage(_currentPage);
-                            }
-                          : null,
-                      child: const Icon(Icons.arrow_forward),
-                    ),
-                  ],
-                );
+
+                if (state is PokemonListSuccessState) {
+                  final currentPage = state.currentPage;
+                  final hasNext = state.hasReachedEnd;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: currentPage > 0
+                            ? () => _loadPage(currentPage - 1)
+                            : null,
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                      Text('Página ${currentPage + 1}'),
+                      ElevatedButton(
+                        onPressed: hasNext
+                            ? () {
+                          _loadPage(currentPage + 1);
+                        }
+                            : null,
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                    ],
+                  );
+                }
+
+                return const SizedBox.shrink();
               },
             ),
           )
