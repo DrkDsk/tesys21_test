@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tesys21_test/src/core/constants/string_constants.dart';
 import 'package:tesys21_test/src/core/di/bloc_injector.dart';
-import 'package:tesys21_test/src/core/helpers/image_helper.dart';
 import 'package:tesys21_test/src/core/shared/ui/widgets/image_network_widget.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/entities/result.dart';
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_bloc.dart';
@@ -25,10 +25,8 @@ class PokemonCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String? pokemonId = ImageHelper.extractIdFromUrl(pokemon.url);
-    final String? imageUrl = pokemonId != null
-        ? "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$pokemonId.png"
-        : null;
+    final String pokemonId = pokemon.id;
+    final String imageUrl = "$kPokemonImageBasePath/$pokemonId.png";
     final String? name = pokemon.name;
 
     return Container(
@@ -43,7 +41,7 @@ class PokemonCardWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: (name != null && pokemonId != null && imageUrl != null)
+      child: (name != null)
           ? GestureDetector(
               onTap: () => _handleShowPokemonNavigation(
                   context: context, pokemonId: int.tryParse(pokemonId) ?? 0),

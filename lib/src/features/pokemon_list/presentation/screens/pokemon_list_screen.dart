@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tesys21_test/src/core/shared/ui/widgets/menu_app_bar.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_event.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_state.dart';
-import 'package:tesys21_test/src/features/pokemon_list/presentation/widgets/pokemon_card_widget.dart';
+import 'package:tesys21_test/src/features/pokemon_list/presentation/widgets/pokemon_grid_widget.dart';
 
 class PokemonListScreen extends StatefulWidget {
   const PokemonListScreen({super.key});
@@ -15,36 +16,33 @@ class PokemonListScreen extends StatefulWidget {
 class _PokemonListScreenState extends State<PokemonListScreen> {
   late PokemonListBloc pokemonListBloc;
 
-  final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
     pokemonListBloc = context.read<PokemonListBloc>();
     Future.microtask(() {
-      _handleFetchPokemons();
+      _handleFetchPokemon();
     });
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
   }
 
-  Future<void> _handleFetchPokemons({int page = 0}) async {
+  Future<void> _handleFetchPokemon({int page = 0}) async {
     pokemonListBloc.add(FetchPokemonEvent(page: page));
   }
 
   void _loadPage(int page) {
-    _handleFetchPokemons(page: page);
+    _handleFetchPokemon(page: page);
   }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Pokédex"), backgroundColor: Colors.yellow[200]),
+      appBar: const MenuAppBar(),
       body: Column(
         children: [
           Expanded(child: BlocBuilder<PokemonListBloc, PokemonListState>(
@@ -54,21 +52,18 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             }
 
             if (state is PokemonListSuccessState) {
-              final pokemonList = state.pokemonResult;
-              return GridView.builder(
-                controller: _scrollController,
-                padding: const EdgeInsets.only(bottom: 24),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.8,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
+              final pokemonList = state.displayedPokemons;
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: PokemonGridWidget(pokemonList: pokemonList),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
-                itemCount: pokemonList.length,
-                itemBuilder: (context, index) {
-                  final currentPokemon = pokemonList[index];
-                  return PokemonCardWidget(pokemon: currentPokemon);
-                },
               );
             }
 
