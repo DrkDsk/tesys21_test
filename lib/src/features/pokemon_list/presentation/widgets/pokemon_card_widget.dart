@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesys21_test/src/core/di/bloc_injector.dart';
 import 'package:tesys21_test/src/core/helpers/image_helper.dart';
+import 'package:tesys21_test/src/core/shared/ui/widgets/image_network_widget.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/entities/result.dart';
-import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemon_show_bloc.dart';
-import 'package:tesys21_test/src/features/show_pokemon/presentation/screens/pokemon_details_screen.dart';
+import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_bloc.dart';
+import 'package:tesys21_test/src/features/pokemon_details/presentation/screens/pokemon_details_screen.dart';
 
 class PokemonCardWidget extends StatelessWidget {
   final Result pokemon;
@@ -52,19 +53,7 @@ class PokemonCardWidget extends StatelessWidget {
                     SizedBox(
                       height: 120,
                       child: Center(
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.contain,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const Center(
-                                child:
-                                    CircularProgressIndicator(strokeWidth: 2));
-                          },
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Center(
-                                  child: Icon(Icons.error, color: Colors.red)),
-                        ),
+                        child: ImageNetworkWidget(imageUrl: imageUrl),
                       ),
                     )
                   ],

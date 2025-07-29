@@ -5,11 +5,11 @@ import 'package:tesys21_test/src/features/pokemon_list/data/repositories/pokemon
 import 'package:tesys21_test/src/features/pokemon_list/domain/datasources/pokemon_list_datasource.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/repositories/pokemon_list_repository.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
-import 'package:tesys21_test/src/features/show_pokemon/data/datasources/pokemon_show_datasource_dio_impl.dart';
-import 'package:tesys21_test/src/features/show_pokemon/data/repositories/pokemon_show_repository_impl.dart';
-import 'package:tesys21_test/src/features/show_pokemon/domain/datasources/pokemon_show_datasource.dart';
-import 'package:tesys21_test/src/features/show_pokemon/domain/repositories/pokemon_show_repository.dart';
-import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemon_show_bloc.dart';
+import 'package:tesys21_test/src/features/pokemon_details/data/datasources/pokemon_show_datasource_dio_impl.dart';
+import 'package:tesys21_test/src/features/pokemon_details/data/repositories/pokemon_show_repository_impl.dart';
+import 'package:tesys21_test/src/features/pokemon_details/domain/datasources/pokemon_show_datasource.dart';
+import 'package:tesys21_test/src/features/pokemon_details/domain/repositories/pokemon_show_repository.dart';
+import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_bloc.dart';
 
 final getIt = GetIt.instance;
 
