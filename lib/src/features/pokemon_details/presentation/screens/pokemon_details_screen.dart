@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesys21_test/src/core/extensions/int_extension.dart';
 import 'package:tesys21_test/src/core/extensions/string_extension.dart';
+import 'package:tesys21_test/src/core/router/app_router.dart';
 import 'package:tesys21_test/src/core/shared/ui/widgets/image_network_widget.dart';
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_details/presentation/blocs/pokemon_show_event.dart';
@@ -64,7 +65,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                 child: Row(
                   children: [
                     IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => AppRouter.of(context).pop(),
                         icon: const Icon(Icons.arrow_back)),
                     const SizedBox(width: 12),
                     if (name != null) ...[
