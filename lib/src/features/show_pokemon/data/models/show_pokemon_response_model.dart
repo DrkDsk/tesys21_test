@@ -1,5 +1,7 @@
 import 'package:tesys21_test/src/features/show_pokemon/data/models/ability_model.dart';
 import 'package:tesys21_test/src/features/show_pokemon/data/models/move_model.dart';
+import 'package:tesys21_test/src/features/show_pokemon/data/models/stat_model.dart';
+import 'package:tesys21_test/src/features/show_pokemon/data/models/type_model.dart';
 import 'package:tesys21_test/src/features/show_pokemon/domain/entities/show_pokemon_response.dart';
 
 class ShowPokemonResponseModel {
@@ -21,8 +23,8 @@ class ShowPokemonResponseModel {
   final int? id;
   final List<MoveModel> moves;
   final String? name;
-  final List<Stat> stats;
-  final List<Type> types;
+  final List<StatModel> stats;
+  final List<TypeModel> types;
   final int? weight;
 
   ShowPokemonResponseModel copyWith({
@@ -32,8 +34,8 @@ class ShowPokemonResponseModel {
     int? id,
     List<MoveModel>? moves,
     String? name,
-    List<Stat>? stats,
-    List<Type>? types,
+    List<StatModel>? stats,
+    List<TypeModel>? types,
     int? weight,
   }) {
     return ShowPokemonResponseModel(
@@ -57,8 +59,8 @@ class ShowPokemonResponseModel {
         id: id,
         moves: moves.map((x) => x.toEntity()).toList(),
         name: name,
-        stats: stats,
-        types: types,
+        stats: stats.map((x) => x.toEntity()).toList(),
+        types: types.map((x) => x.toEntity()).toList(),
         weight: weight);
   }
 
@@ -82,10 +84,10 @@ class ShowPokemonResponseModel {
       baseExperience: map['baseExperience'] as int,
       height: map['height'] as int,
       id: map['id'] as int,
-      moves: map['moves'] as List<MoveModel>,
+      moves: map['moves'] == null ? [] : List<MoveModel>.from(map["moves"]!.map((x) => MoveModel.fromJson(x))),
       name: map['name'] as String,
-      stats: map['stats'] as List<Stat>,
-      types: map['types'] as List<Type>,
+      stats: map['stats'] == null ? [] : List<StatModel>.from(map["stats"]!.map((x) => StatModel.fromJson(x))),
+      types: map['types'] == null ? [] : List<TypeModel>.from(map["types"]!.map((x) => TypeModel.fromJson(x))),
       weight: map['weight'] as int,
     );
   }
