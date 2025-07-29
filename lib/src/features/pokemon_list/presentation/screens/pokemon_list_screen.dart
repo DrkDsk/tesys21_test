@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tesys21_test/src/core/shared/ui/widgets/menu_app_bar.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_event.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_state.dart';
@@ -15,7 +16,6 @@ class PokemonListScreen extends StatefulWidget {
 class _PokemonListScreenState extends State<PokemonListScreen> {
   late PokemonListBloc pokemonListBloc;
 
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -28,7 +28,6 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -44,7 +43,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Pokédex"), backgroundColor: Colors.yellow[200]),
+      appBar: const MenuAppBar(),
       body: Column(
         children: [
           Expanded(child: BlocBuilder<PokemonListBloc, PokemonListState>(
@@ -54,9 +53,8 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             }
 
             if (state is PokemonListSuccessState) {
-              final pokemonList = state.pokemonResult;
+              final pokemonList = state.displayedPokemons;
               return GridView.builder(
-                controller: _scrollController,
                 padding: const EdgeInsets.only(bottom: 24),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
