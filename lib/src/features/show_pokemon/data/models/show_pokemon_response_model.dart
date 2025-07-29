@@ -81,14 +81,14 @@ class ShowPokemonResponseModel {
   factory ShowPokemonResponseModel.fromJson(Map<String, dynamic> map) {
     return ShowPokemonResponseModel(
       abilities: map["abilities"] == null ? [] : List<AbilityModel>.from(map["abilities"]!.map((x) => AbilityModel.fromJson(x))),
-      baseExperience: map['baseExperience'] as int,
-      height: map['height'] as int,
-      id: map['id'] as int,
+      baseExperience: (map['baseExperience'] as num?)?.toInt(),
+      height: (map['height'] as num?)?.toInt(),
+      id: (map['id'] as num?)?.toInt(),
       moves: map['moves'] == null ? [] : List<MoveModel>.from(map["moves"]!.map((x) => MoveModel.fromJson(x))),
       name: map['name'] as String,
       stats: map['stats'] == null ? [] : List<StatModel>.from(map["stats"]!.map((x) => StatModel.fromJson(x))),
       types: map['types'] == null ? [] : List<TypeModel>.from(map["types"]!.map((x) => TypeModel.fromJson(x))),
-      weight: map['weight'] as int,
+      weight: (map['weight'] as num?)?.toInt(),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:tesys21_test/src/core/di/bloc_injector.dart';
 import 'package:tesys21_test/src/core/helpers/image_helper.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/entities/result.dart';
 import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemon_show_bloc.dart';
-import 'package:tesys21_test/src/features/show_pokemon/presentation/screens/pokemon_show_screen.dart';
+import 'package:tesys21_test/src/features/show_pokemon/presentation/screens/pokemon_details_screen.dart';
 
 class PokemonCardWidget extends StatelessWidget {
   final Result pokemon;
@@ -19,7 +19,7 @@ class PokemonCardWidget extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => BlocProvider(
             create: (context) => getIt<PokemonShowBloc>(),
-            child: PokemonShowScreen(pokemonId: pokemonId))));
+            child: PokemonDetailsScreen(pokemonId: pokemonId))));
   }
 
   @override

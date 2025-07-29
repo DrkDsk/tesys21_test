@@ -4,16 +4,16 @@ import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemo
 import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemon_show_event.dart';
 import 'package:tesys21_test/src/features/show_pokemon/presentation/blocs/pokemon_show_state.dart';
 
-class PokemonShowScreen extends StatefulWidget {
+class PokemonDetailsScreen extends StatefulWidget {
   final int pokemonId;
 
-  const PokemonShowScreen({super.key, required this.pokemonId});
+  const PokemonDetailsScreen({super.key, required this.pokemonId});
 
   @override
-  State<PokemonShowScreen> createState() => _PokemonShowScreenState();
+  State<PokemonDetailsScreen> createState() => _PokemonDetailsScreenState();
 }
 
-class _PokemonShowScreenState extends State<PokemonShowScreen> {
+class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
   late PokemonShowBloc pokemonShowBloc;
 
   @override
