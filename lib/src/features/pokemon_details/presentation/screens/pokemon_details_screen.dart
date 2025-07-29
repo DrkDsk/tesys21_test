@@ -31,6 +31,8 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BlocBuilder<PokemonShowBloc, PokemonShowState>(
       builder: (context, state) {
         Widget bodyWidget = const SizedBox.shrink();
@@ -53,6 +55,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
           final types = response.types;
 
           backgroundColor = state.color?.name?.toColor;
+
           bodyWidget = Column(
             children: [
               Padding(
@@ -84,19 +87,11 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  const Positioned(
-                    left: 16,
-                    child: Icon(Icons.chevron_left),
-                  ),
-                  const Positioned(
-                    right: 16,
-                    child: Icon(Icons.chevron_right),
-                  ),
                   Column(
                     children: [
                       Container(
-                        height: 180,
-                        width: 180,
+                        height: 300,
+                        width: 300,
                         decoration: const BoxDecoration(
                           color: Colors.black12,
                           shape: BoxShape.circle,
@@ -113,8 +108,11 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                     const EdgeInsets.symmetric(horizontal: 4.0),
                                 child: Chip(
                                     label: Text(
-                                        type.type?.name?.capitalizeFirst() ??
-                                            "")),
+                                      type.type?.name?.capitalizeFirst() ??
+                                          "",
+                                      style: theme.textTheme.bodyMedium,
+                                    )
+                                ),
                               )),
                         ],
                       ),
@@ -144,10 +142,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                         Center(
                           child: Text(
                             'Acerca de',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[500]),
+                            style: theme.textTheme.bodyLarge,
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -157,15 +152,15 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                             Column(
                               children: [
                                 const Icon(Icons.monitor_weight),
-                                Text('${response.weight.toKilograms()} kg'),
-                                const Text('Peso'),
+                                Text('${response.weight.toKilograms()} kg', style: theme.textTheme.bodySmall),
+                                Text('Peso', style: theme.textTheme.bodyMedium),
                               ],
                             ),
                             Column(
                               children: [
                                 const Icon(Icons.height),
-                                Text('${response.height.toMeters()} m'),
-                                const Text('Altura'),
+                                Text('${response.height.toMeters()} m', style: theme.textTheme.bodySmall),
+                                Text('Altura', style: theme.textTheme.bodyMedium),
                               ],
                             ),
                             Column(
@@ -175,9 +170,11 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                                     .where((ability) =>
                                         ability.ability?.name != null)
                                     .map((ability) {
-                                  return Text(ability.ability?.name
+                                  return Text(
+                                      ability.ability?.name
                                           ?.capitalizeFirst() ??
-                                      "");
+                                      "",
+                                  style: theme.textTheme.bodyMedium);
                                 }),
                               ],
                             ),
@@ -186,6 +183,7 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                         const SizedBox(height: 16),
                         Text(
                           "${state.description?.cleanNewlines()}",
+                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 18),
                         ),
                         const SizedBox(height: 16),
                         BaseStatsContainerWidget(tile: "Estadísticas Base", response: response)

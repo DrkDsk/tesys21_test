@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tesys21_test/src/core/extensions/int_extension.dart';
+import 'package:tesys21_test/src/core/extensions/string_extension.dart';
 
 class BaseStatsItemWidget extends StatelessWidget {
   const BaseStatsItemWidget({
@@ -23,7 +24,7 @@ class BaseStatsItemWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(
-              statName,
+              statName.capitalizeFirst(),
               textAlign: TextAlign.right,
             ),
           ),

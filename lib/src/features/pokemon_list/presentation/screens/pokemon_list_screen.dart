@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tesys21_test/src/core/shared/ui/widgets/elevated_button_widget.dart';
 import 'package:tesys21_test/src/core/shared/ui/widgets/menu_app_bar.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_event.dart';
@@ -40,7 +41,6 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const MenuAppBar(),
       body: Column(
@@ -85,20 +85,20 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(
+                      ElevatedButtonWidget(
                         onPressed: currentPage > 0
                             ? () => _loadPage(currentPage - 1)
                             : null,
-                        child: const Icon(Icons.arrow_back),
+                        iconData: Icons.arrow_back,
                       ),
                       Text('Página ${currentPage + 1}'),
-                      ElevatedButton(
+                      ElevatedButtonWidget(
                         onPressed: hasNext
                             ? () {
-                          _loadPage(currentPage + 1);
-                        }
+                                _loadPage(currentPage + 1);
+                              }
                             : null,
-                        child: const Icon(Icons.arrow_forward),
+                        iconData: Icons.arrow_forward,
                       ),
                     ],
                   );

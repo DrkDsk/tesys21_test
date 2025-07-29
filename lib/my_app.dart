@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tesys21_test/src/core/helpers/theme_helper.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/screens/pokemon_list_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -9,10 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pokedex',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeHelper.getThemeData(context: context),
       home: const PokemonListScreen(),
     );
   }

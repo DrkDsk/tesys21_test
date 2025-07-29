@@ -14,15 +14,14 @@ class BaseStatsContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       children: [
         Center(
           child: Text(
             tile,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[500]),
+            style: theme.textTheme.bodyMedium,
           ),
         ),
         const SizedBox(height: 12),

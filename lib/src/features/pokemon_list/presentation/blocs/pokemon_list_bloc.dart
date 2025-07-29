@@ -89,14 +89,11 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState> {
       ) async {
     final currentState = state;
 
-
     if (currentState is PokemonListSuccessState) {
       final query = event.query.trim().toLowerCase();
 
-
       final filtered = currentState.pokemonResult.where((pokemon) {
         final name = pokemon.name;
-
 
         if (name == null) {
           return false;

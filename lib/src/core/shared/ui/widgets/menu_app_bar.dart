@@ -36,7 +36,6 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: const Row(
                       children: [
                         Icon(Icons.search, color: Colors.red),
-                        SizedBox(width: 8),
                         Expanded(
                           child: SearchPokemonField(),
                         ),
