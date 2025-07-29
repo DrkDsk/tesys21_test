@@ -140,12 +140,6 @@ class _PokemonDetailsScreenState extends State<PokemonDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Text(
-                            'Acerca de',
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                        ),
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
