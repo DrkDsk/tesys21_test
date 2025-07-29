@@ -16,7 +16,8 @@ final class PokemonErrorState extends PokemonListState {
 
 final class PokemonListSuccessState extends PokemonListState {
   final List<Result> pokemonResult;
+  final int currentPage;
   final bool hasReachedEnd;
 
-  PokemonListSuccessState({required this.pokemonResult, this.hasReachedEnd = false});
+  PokemonListSuccessState({required this.pokemonResult, required this.currentPage, this.hasReachedEnd = false});
 }
