@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tesys21_test/src/core/constants/string_constants.dart';
 import 'package:tesys21_test/src/core/di/bloc_injector.dart';
-import 'package:tesys21_test/src/core/extensions/string_extension.dart';
 import 'package:tesys21_test/src/core/router/app_router.dart';
 import 'package:tesys21_test/src/core/shared/ui/widgets/image_network_widget.dart';
 import 'package:tesys21_test/src/features/pokemon_list/domain/entities/result.dart';
