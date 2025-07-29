@@ -4,7 +4,7 @@ import 'package:tesys21_test/src/core/shared/ui/widgets/menu_app_bar.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_bloc.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_event.dart';
 import 'package:tesys21_test/src/features/pokemon_list/presentation/blocs/pokemon_list_state.dart';
-import 'package:tesys21_test/src/features/pokemon_list/presentation/widgets/pokemon_card_widget.dart';
+import 'package:tesys21_test/src/features/pokemon_list/presentation/widgets/pokemon_grid_widget.dart';
 
 class PokemonListScreen extends StatefulWidget {
   const PokemonListScreen({super.key});
@@ -21,7 +21,7 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     super.initState();
     pokemonListBloc = context.read<PokemonListBloc>();
     Future.microtask(() {
-      _handleFetchPokemons();
+      _handleFetchPokemon();
     });
   }
 
@@ -30,12 +30,12 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
     super.dispose();
   }
 
-  Future<void> _handleFetchPokemons({int page = 0}) async {
+  Future<void> _handleFetchPokemon({int page = 0}) async {
     pokemonListBloc.add(FetchPokemonEvent(page: page));
   }
 
   void _loadPage(int page) {
-    _handleFetchPokemons(page: page);
+    _handleFetchPokemon(page: page);
   }
 
   @override
@@ -57,21 +57,9 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Expanded(
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          childAspectRatio: 0.8,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                        ),
-                        itemCount: pokemonList.length,
-                        itemBuilder: (context, index) {
-                          final currentPokemon = pokemonList[index];
-                          return PokemonCardWidget(pokemon: currentPokemon);
-                        },
-                      ),
+                      child: PokemonGridWidget(pokemonList: pokemonList),
                     ),
                     const SizedBox(height: 10),
                   ],
