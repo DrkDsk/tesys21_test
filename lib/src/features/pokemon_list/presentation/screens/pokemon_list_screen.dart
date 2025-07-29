@@ -77,7 +77,6 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
             padding: const EdgeInsets.all(16),
             child: BlocBuilder<PokemonListBloc, PokemonListState>(
               builder: (context, state) {
-                final theme = Theme.of(context);
 
                 if (state is PokemonListSuccessState) {
                   final currentPage = state.currentPage;

@@ -21,7 +21,7 @@ class BaseStatsContainerWidget extends StatelessWidget {
         Center(
           child: Text(
             tile,
-            style: theme.textTheme.bodyLarge,
+            style: theme.textTheme.bodyMedium,
           ),
         ),
         const SizedBox(height: 12),
