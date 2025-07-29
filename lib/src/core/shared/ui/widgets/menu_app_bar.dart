@@ -12,29 +12,25 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.yellow[200],
-      title: const Text("Pokédex"),
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(10),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              const Expanded(
-                child: SearchPokemonField(),
-              ),
-              const SizedBox(width: 10),
-              PopupMenuButton<SortOption>(
-                icon: const Icon(Icons.sort),
-                onSelected: (value) {
-                  context.read<PokemonListBloc>().add(SortPokemonEvent(value));
-                },
-                itemBuilder: (_) => const [
-                  PopupMenuItem(value: SortOption.name, child: Text("Nombre")),
-                  PopupMenuItem(value: SortOption.id, child: Text("ID")),
-                ],
-              ),
-            ],
-          ),
+        preferredSize: const Size.fromHeight(70),
+        child: Row(
+          children: [
+            const Expanded(
+              child: SearchPokemonField(),
+            ),
+            const SizedBox(width: 10),
+            PopupMenuButton<SortOption>(
+              icon: const Icon(Icons.sort),
+              onSelected: (value) {
+                context.read<PokemonListBloc>().add(SortPokemonEvent(value));
+              },
+              itemBuilder: (_) => const [
+                PopupMenuItem(value: SortOption.name, child: Text("Nombre")),
+                PopupMenuItem(value: SortOption.id, child: Text("ID")),
+              ],
+            ),
+          ],
         ),
       ),
     );

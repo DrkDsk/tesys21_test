@@ -54,19 +54,29 @@ class _PokemonListScreenState extends State<PokemonListScreen> {
 
             if (state is PokemonListSuccessState) {
               final pokemonList = state.displayedPokemons;
-              return GridView.builder(
-                padding: const EdgeInsets.only(bottom: 24),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.8,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 0.8,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount: pokemonList.length,
+                        itemBuilder: (context, index) {
+                          final currentPokemon = pokemonList[index];
+                          return PokemonCardWidget(pokemon: currentPokemon);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
-                itemCount: pokemonList.length,
-                itemBuilder: (context, index) {
-                  final currentPokemon = pokemonList[index];
-                  return PokemonCardWidget(pokemon: currentPokemon);
-                },
               );
             }
 
