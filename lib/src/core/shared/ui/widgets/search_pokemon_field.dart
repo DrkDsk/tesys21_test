@@ -8,10 +8,15 @@ class SearchPokemonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
     return TextField(
+      style: theme.textTheme.bodyMedium,
       onChanged: (value) => BlocProvider.of<PokemonListBloc>(context)
           .add(SearchPokemonEvent(query: value)),
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        hintStyle: theme.textTheme.bodyMedium,
         hintText: 'Buscar Pokemon',
         border: InputBorder.none,
         isDense: true,
