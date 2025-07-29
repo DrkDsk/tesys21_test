@@ -39,5 +39,4 @@ class DetailsPokemonResponseModel {
       flavorTextEntries: flavorTextEntries.map((x) => x.toEntity()).toList()
     );
   }
-
 }
